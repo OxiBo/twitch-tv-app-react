@@ -1,0 +1,29 @@
+$buttonHeight: 30px;
+
+.buttons {
+  display: flex;
+  margin: 2px auto;
+  
+
+  > * {
+    flex: 1;
+  }
+  button {
+    appearance: none;
+    width: 100%;
+    outline: none;
+    font-weight: bold;
+    font-size: 0.9em;
+   background: $button;
+    height: $buttonHeight;
+    
+  }
+
+  button:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175)
+}
+
+.active {
+    background-color: $activeButton;
+}
+}

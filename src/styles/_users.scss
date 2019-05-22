@@ -1,0 +1,48 @@
+.user {
+   
+    min-height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 10px 5px 10px;
+    margin: 2px;
+    text-align: center;
+  
+
+    
+    .userLogo {
+      flex: 1 20%;
+      img {
+        width: 60%;
+        padding: 0;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 55%;
+      }
+    }
+
+    .userUrl {
+      flex: 1 30%;
+      a {
+        text-decoration: none;
+        font-weight: normal;
+      }
+    }
+
+    .userStream {
+      flex: 4 1 40%;
+      padding: 5px  5px 5px 5px;
+      margin: 5px;
+      p {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .offline {
+    background-color: $offlineColor;
+  }
+
+  .online {
+    background-color: $onlineColor;
+  }

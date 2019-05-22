@@ -1,0 +1,12 @@
+form{
+    text-align: center;
+    margin: 20px auto;
+}
+
+// this styles the input field with type "search", it would not show and would not let style it without "appearance: none"
+input[type=search]{
+    appearance: none; 
+    height: 30px;
+    padding: 5px;
+    outline-color: $offlineColor;
+}
