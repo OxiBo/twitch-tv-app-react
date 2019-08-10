@@ -1,5 +1,8 @@
 import userInfo from "../api/twitchTV";
 
+// bluebird library (Promise.mapSeries) for handling multiple async requests - http://bluebirdjs.com/docs/api/promise.mapseries.html
+import {Promise} from "bluebird";
+
 // const users = ["ESL_SC2", "freecodecamp", "RobotCaleb", "Orange_HS"];
 
 const users = [
@@ -18,17 +21,19 @@ const users = [
 ];
 
  const getUsersInfo = async () => {
-    let result = await users.reduce(async (acc, user) => {
-      let accumulator = await acc;
-      const info = await userInfo(user);
+
+  return await Promise.mapSeries(users, async (user) => {
+    return await userInfo(user)
+  } )
+    // let result = await users.reduce(async (acc, user) => {
+    //   let accumulator = await acc;
+    //   const info = await userInfo(user);
      
-      accumulator = [...accumulator, info];
-      return Promise.resolve(accumulator);
-    }, Promise.resolve([]));
+    //   accumulator = [...accumulator, info];
+    //   return Promise.resolve(accumulator);
+    // }, Promise.resolve([]));
 
-    return result;
-
-   
+    // return result;
   };
 
   export default getUsersInfo
