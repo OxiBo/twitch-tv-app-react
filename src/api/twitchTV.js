@@ -2,17 +2,17 @@
 
 const baseURL = "https://wind-bow.glitch.me/twitch-api/";
 
-const userInfo = async (user = "cretetion") => {
+const userInfo = async (user) => {
   let info = { name: "", urlStream: "", icon: "", status: "" };
   try {
-    //   api call with axios, if using axios, in if blocks need to change "response[n]" to 'response[n].data'
+    //   api call with axios, if using axios, in 'if' blocks need to change "response[n]" to 'response[n].data'
     // const response = await Promise.all([
     //   axios.get(`${baseURL}users/${encodeURIComponent(user)}?callback`),
     //   axios.get(`${baseURL}streams/${encodeURIComponent(user)}?callback`)
     // ]);
 
     /*  I use fetch because axios will  catch an error if the user does not exist or offline (unavailable) and the error will not be informative enough.  
-read more - https://medium.com/@sahilkkrazy/fetch-vs-axios-http-request-c9afa43f804e */
+    read more - https://medium.com/@sahilkkrazy/fetch-vs-axios-http-request-c9afa43f804e */
 
     const response = await Promise.all([
       fetch(`${baseURL}users/${encodeURIComponent(user)}?callback`, {
@@ -77,7 +77,7 @@ read more - https://medium.com/@sahilkkrazy/fetch-vs-axios-http-request-c9afa43f
     };
   }
 
-  //   console.log(info);
+    console.log(info);
   return info;
 };
 
