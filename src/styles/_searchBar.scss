@@ -1,12 +1,45 @@
-form{
-    text-align: center;
-    margin: 20px auto;
-}
+form {
+  text-align: center;
+  margin: 20px auto;
+  position: relative;
 
-// this styles the input field with type "search", it would not show and would not let style it without "appearance: none"
-input[type=search]{
-    appearance: none; 
+  // this styles the input field with type "search", it would not show and would not let style it without "appearance: none"
+  input[type="search"] {
+    appearance: none;
     height: 30px;
     padding: 5px;
+
     outline-color: $offlineColor;
+  }
+
+  ul {
+    @extend input[type="search"];
+    
+    list-style: none;
+    width: 140px;
+    margin: 0 auto;
+    padding: 0;
+    border: 1px solid transparent;
+    // border-radius: 5px;
+    text-align: center;
+    
+  }
+
+  .typeAhead{
+      display: none;
+  }
+
+  .suggestions {
+      display: block;
+    li {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 5px;
+        border: none;
+        padding: 2px;
+      }
+  
+      li:hover {
+        background: lighten($background, 40%);
+      }
+  }
 }
