@@ -8,6 +8,17 @@ export default class SearchBar extends Component {
     typeAheadSuggestions: []
   };
 
+  componentDidMount() {
+    document.body.addEventListener("click", e => {
+      // e.stopPropagation();
+      if (document.querySelector(".suggestions")) {
+        document.querySelector(".suggestions").classList.add("typeAhead");
+        document.querySelector(".typeAhead").classList.remove("suggestions");
+        // document.getElementById('typeAheadOptions').classList.add("typeAhead")
+      }
+    });
+  }
+
   onFormSubmit = event => {
     event.preventDefault();
     this.props.onFormSubmit(this.state.searchUser);
@@ -67,12 +78,15 @@ export default class SearchBar extends Component {
   };
 
   chooseSuggestion = e => {
+    e.stopPropagation();
     this.setState({ searchUser: e.target.innerHTML, typeAheadSuggestions: [] });
   };
 
   render() {
     const typeAheadStyles =
-      this.state.typeAheadSuggestions.length > 0 ? "suggestions" : "typeAhead";
+      this.state.typeAheadSuggestions.length > 0 && this.state.searchUser !== ""
+        ? "suggestions"
+        : "typeAhead";
     return (
       <div id="searchForm">
         <form
@@ -90,7 +104,7 @@ export default class SearchBar extends Component {
             autoComplete="off"
             onChange={this.handleInput}
           />
-          <ul className={typeAheadStyles}>
+          <ul id="typeAheadOptions" className={typeAheadStyles}>
             {this.renderTypeAheadSuggestions()}
           </ul>
         </form>
