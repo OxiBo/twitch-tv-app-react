@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 // import { typeahead } from "../helpers/typeahead";
+import typeAheadMatches from "../helpers/typeAhead_handMade";
 
 export default class SearchBar extends Component {
   state = {
-    searchUser: ""
+    searchUser: "",
+    typeAheadSuggestions: []
   };
 
   onFormSubmit = event => {
@@ -12,13 +14,26 @@ export default class SearchBar extends Component {
     this.setState({
       searchUser: ""
     });
+
+    /* one of the ways to get data from a form
+    const form = document.querySelector(".form");
+    if (form) {
+      let formData = new FormData(form);
+      formData = Array.from(formData.entries()); 
+    }
+    */
   };
 
-  handleInput = event => {
-    event.preventDefault();
-    this.setState({
+  handleInput = async event => {
+    await this.setState({
       searchUser: event.target.value
     });
+
+    if (this.state.searchUser !== "") {
+      this.setState({
+        typeAheadSuggestions: typeAheadMatches(this.state.searchUser)
+      });
+    }
 
     /*
 
@@ -39,7 +54,25 @@ export default class SearchBar extends Component {
     */
   };
 
+  renderTypeAheadSuggestions = () => {
+    const { typeAheadSuggestions } = this.state;
+
+    if (typeAheadSuggestions) {
+      return typeAheadSuggestions.map(user => (
+        <li key={user} onClick={this.chooseSuggestion}>
+          {user}
+        </li>
+      ));
+    }
+  };
+
+  chooseSuggestion = e => {
+    this.setState({ searchUser: e.target.innerHTML, typeAheadSuggestions: [] });
+  };
+
   render() {
+    const typeAheadStyles =
+      this.state.typeAheadSuggestions.length > 0 ? "suggestions" : "typeAhead";
     return (
       <div id="searchForm">
         <form
@@ -57,14 +90,15 @@ export default class SearchBar extends Component {
             autoComplete="off"
             onChange={this.handleInput}
           />
+          <ul className={typeAheadStyles}>
+            {this.renderTypeAheadSuggestions()}
+          </ul>
         </form>
       </div>
     );
   }
 }
 
-
-  /* 
+/* 
   inline handling input onChange
   onChange={(e) => this.setState({searchUser: e.target.value })} */
-
